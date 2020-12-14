@@ -4,11 +4,16 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Paint
 import android.text.*
+import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.util.AttributeSet
+import android.view.MotionEvent
+import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnPreDrawListener
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import com.test.magictextview.R
+import com.test.magictextview.span.MyClickSpan
 import kotlin.math.ceil
 
 /**
@@ -36,6 +41,8 @@ class MoreTextView @JvmOverloads constructor(
      */
     private val moreTextColor: Int
     private var mPaint: Paint? = null
+
+    private var onAllSpanClickListener: MyClickSpan.OnAllSpanClickListener? = null
 
 
     init {
@@ -89,6 +96,12 @@ class MoreTextView @JvmOverloads constructor(
                         ForegroundColorSpan(moreTextColor), 3, sb.length,
                         Spanned.SPAN_INCLUSIVE_INCLUSIVE
                     )
+                    //设置点击事件
+                    sb.setSpan(
+                        MyClickSpan(context, onAllSpanClickListener), 3, sb.length,
+                        Spanned.SPAN_INCLUSIVE_INCLUSIVE
+                    )
+
                     stringBuilder.append(sb)
                     text = stringBuilder
                 }
@@ -96,5 +109,74 @@ class MoreTextView @JvmOverloads constructor(
                 return false
             }
         })
+    }
+
+    //实现span的点击
+    private var mPressedSpan: ClickableSpan? = null
+    private var result = false
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        val text = text
+        val spannable = Spannable.Factory.getInstance().newSpannable(text)
+
+        if (event.action == MotionEvent.ACTION_DOWN) {
+            //按下时记下clickSpan
+            mPressedSpan = getPressedSpan(this, spannable, event)
+            if (mPressedSpan != null && mPressedSpan is MyClickSpan) {
+                result = true
+                Selection.setSelection(
+                    spannable, spannable.getSpanStart(mPressedSpan),
+                    spannable.getSpanEnd(mPressedSpan)
+                )
+            }else{
+                result = super.onTouchEvent(event)
+            }
+        }
+
+        if (event.action == MotionEvent.ACTION_MOVE) {
+            val mClickSpan = getPressedSpan(this, spannable, event)
+            if (mPressedSpan != null && mPressedSpan !== mClickSpan) {
+                mPressedSpan = null
+                Selection.removeSelection(spannable)
+            }
+        }
+        if (event.action == MotionEvent.ACTION_UP) {
+            result = if (mPressedSpan != null && mPressedSpan is MyClickSpan) {
+                (mPressedSpan as MyClickSpan).onClick(this)
+                true
+            } else {
+                super.onTouchEvent(event)
+            }
+            mPressedSpan = null
+            Selection.removeSelection(spannable)
+        }
+        return result
+    }
+
+    fun setOnAllSpanClickListener(
+        onAllSpanClickListener: MyClickSpan.OnAllSpanClickListener?
+    ) {
+        this.onAllSpanClickListener = onAllSpanClickListener
+    }
+
+    private fun getPressedSpan(
+        textView: TextView, spannable: Spannable,
+        event: MotionEvent
+    ): ClickableSpan? {
+        var mTouchSpan: ClickableSpan? = null
+        var x = event.x.toInt()
+        var y = event.y.toInt()
+        x -= textView.totalPaddingLeft
+        x += textView.scrollX
+        y -= textView.totalPaddingTop
+        y += textView.scrollY
+        val layout = layout
+        val line = layout.getLineForVertical(y)
+        val off = layout.getOffsetForHorizontal(line, x.toFloat())
+        val spans: Array<MyClickSpan> = spannable.getSpans(off, off, MyClickSpan::class.java)
+        if (!spans.isNullOrEmpty()) {
+            mTouchSpan = spans[0]
+        }
+        return mTouchSpan
     }
 }

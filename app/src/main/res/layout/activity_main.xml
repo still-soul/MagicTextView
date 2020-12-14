@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context=".MainActivity"
     android:padding="20dp">
     <com.test.magictextview.moretext.MoreTextView
@@ -14,5 +14,12 @@
         app:more_action_text_maxLines="3"
         app:more_action_text="...全文"
         app:more_action_text_color="#4D6EB0"/>
+
+    <com.test.magictextview.link.LinkTextView
+        android:id="@+id/tvLink"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="5dp"/>
 
 </LinearLayout>
