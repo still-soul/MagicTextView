@@ -9,7 +9,7 @@ import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.test.magictextview.R
-import com.test.magictextview.link.bean.LinkBean
+import com.test.magictextview.bean.LinkBean
 import com.test.magictextview.link.span.MyLinkClickSpan
 import com.test.magictextview.span.MyImageSpan
 import java.util.regex.Pattern

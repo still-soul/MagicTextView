@@ -1,4 +1,4 @@
-package com.test.magictextview.link.bean
+package com.test.magictextview.bean
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

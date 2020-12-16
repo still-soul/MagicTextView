@@ -5,7 +5,6 @@ import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.view.View
 import androidx.core.content.ContextCompat
-import com.test.magictextview.R
 
 class MyClickSpan(
     private val context: Context,

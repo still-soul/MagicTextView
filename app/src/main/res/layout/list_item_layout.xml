@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.test.magictextview.moretext.ListMoreTextView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:layout_marginTop="20dp"
+    app:more_action_text_maxLines="3"
+    app:more_action_text="...全文"
+    app:more_action_text_color="#4D6EB0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>

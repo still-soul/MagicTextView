@@ -7,7 +7,7 @@ import android.text.Spanned
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import com.test.magictextview.link.bean.LinkBean
+import com.test.magictextview.bean.LinkBean
 import com.test.magictextview.link.helper.LinkCheckHelper
 import com.test.magictextview.span.MyClickSpan
 import com.test.magictextview.span.MyImageSpan
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         })
         tvMore.setOnClickListener {
-            Toast.makeText(this@MainActivity,"点击内容",Toast.LENGTH_SHORT).show()
+            ListActivity.launch(this)
         }
 
         val linkList: MutableList<LinkBean> = mutableListOf()
