@@ -9,5 +9,6 @@
     app:more_action_text_maxLines="3"
     app:more_action_text="...全文"
     app:more_action_text_color="#4D6EB0"
+    app:more_can_click="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/>

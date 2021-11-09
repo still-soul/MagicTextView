@@ -4,9 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.test.magictextview.R
 import com.test.magictextview.moretext.ListMoreTextView
+import com.test.magictextview.span.MyClickSpan
 
 class ListAdapter(private val mContext: Context) :
     RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
@@ -39,5 +41,14 @@ class ListAdapter(private val mContext: Context) :
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val content = listBeans[position]
         holder.tv.text = content
+        holder.tv.setOnAllSpanClickListener(object : MyClickSpan.OnAllSpanClickListener{
+            override fun onClick(widget: View?) {
+                Toast.makeText(mContext,"展开全文", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+        holder.tv.setOnClickListener {
+            Toast.makeText(mContext,"点击文本", Toast.LENGTH_SHORT).show()
+        }
     }
 }

@@ -16,12 +16,12 @@ class MyLinkMovementMethod : LinkMovementMethod() {
     }
 
     companion object {
-        val instance: MyLinkMovementMethod?
+        val instance: MyLinkMovementMethod
             get() {
                 if (sInstance == null) {
                     sInstance = MyLinkMovementMethod()
                 }
-                return sInstance
+                return sInstance as MyLinkMovementMethod
             }
         private var sInstance: MyLinkMovementMethod? = null
         private val sHelper = SpanClickHelper()
