@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RoundButton">
+        <attr name="roundBgColor" format="color"/>
+        <attr name="roundRadius" format="dimension"/>
+        <attr name="topLeftRadius" format="dimension"/>
+        <attr name="topRightRadius" format="dimension"/>
+        <attr name="bottomLeftRadius" format="dimension"/>
+        <attr name="bottomRightRadius" format="dimension"/>
+        <attr name="roundStrokeColor" format="color"/>
+        <attr name="roundStrokeWidth" format="dimension"/>
+    </declare-styleable>
+
+    <attr name="RoundButtonStyle" format="reference"/>
+
+</resources>
