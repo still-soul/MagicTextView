@@ -4,3 +4,4 @@
 2、ListMoreTextView :重写onMeasure（）方法 实现 超过最大行数显示...全文，支持链接的显示及交互
 3、LinkTextView ：链接的显示和交互
 4、RoundButton: 可以设置背景色、指定圆角、描边的宽度和颜色
+5、agSpanText ：TextView tag 标签

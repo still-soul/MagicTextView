@@ -33,4 +33,10 @@
         app:roundRadius="20dp"
         app:roundBgColor="@color/design_default_color_primary_variant"/>
 
+    <TextView
+        android:id="@+id/tvTag"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

@@ -1,16 +1,23 @@
 package com.test.magictextview
 
+import android.graphics.Color
+import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.test.magictextview.bean.LinkBean
 import com.test.magictextview.link.helper.LinkCheckHelper
 import com.test.magictextview.span.MyClickSpan
 import com.test.magictextview.span.MyImageSpan
+import com.test.magictextview.tag.TagSpanText
+import com.test.magictextview.utils.PublicMethod
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -50,5 +57,32 @@ class MainActivity : AppCompatActivity() {
             ssbContent1 = LinkCheckHelper.getLink(this, ssbContent1, linkList)
         }
         tvLink.text = ssbContent1
+
+
+        val strokeWidth = 1
+        val spanTextSize = PublicMethod.sp2px(this, 10f)
+        val spanRadius = PublicMethod.dp2px(this, 3f)
+        val marginRight = PublicMethod.dp2px(this, 4f)
+        val spanPaddingLeft = PublicMethod.dp2px(this, 4f)
+        val tagString = "置顶"
+        val textString = "多好多好的都不懂"
+        val spannableString = SpannableString("$tagString$textString")
+        val color =
+                Color.parseColor("#FF5784")
+        val span = TagSpanText(
+                color,
+                color,
+                spanTextSize ,
+                spanRadius ,
+                marginRight,
+                strokeWidth ,
+                spanPaddingLeft,
+                Paint.Style.STROKE
+        )
+        spannableString.setSpan(span, 0, tagString.length, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+
+        findViewById<TextView>(R.id.tvTag).text = spannableString
+
+
     }
 }
