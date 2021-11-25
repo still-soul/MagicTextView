@@ -49,14 +49,9 @@ class MainActivity : AppCompatActivity() {
             ListActivity.launch(this)
         }
 
-        val linkList: MutableList<LinkBean> = mutableListOf()
         val a = "你说的<a href=\"https://www.qq.com\">我是链接AAAA</a>11111<a href=\"https://www.baidu.com\">我也是链接</a>维生素睡啦啊十分另外玩完完完"
-        val finalContent = LinkCheckHelper.computeLenFilterLink(a,linkList)
-        var ssbContent1 = SpannableStringBuilder(finalContent)
-        if (linkList.isNotEmpty()) {
-            ssbContent1 = LinkCheckHelper.getLink(this, ssbContent1, linkList)
-        }
-        tvLink.text = ssbContent1
+        val finalContent = LinkCheckHelper.computeLenFilterLink(a,this)
+        tvLink.text = finalContent
 
 
         val strokeWidth = 1
