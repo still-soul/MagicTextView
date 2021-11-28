@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.test.magictextview.bean.LinkBean
 import com.test.magictextview.link.helper.LinkCheckHelper
 import com.test.magictextview.span.MyClickSpan
@@ -19,6 +20,7 @@ import com.test.magictextview.span.MyImageSpan
 import com.test.magictextview.tag.TagSpanText
 import com.test.magictextview.utils.PublicMethod
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,10 +51,19 @@ class MainActivity : AppCompatActivity() {
             ListActivity.launch(this)
         }
 
-        val a = "你说的<a href=\"https://www.qq.com\">我是链接AAAA</a>11111<a href=\"https://www.baidu.com\">我也是链接</a>维生素睡啦啊十分另外玩完完完"
-        val finalContent = LinkCheckHelper.computeLenFilterLink(a,this)
-        tvLink.text = finalContent
+//        val linkList: MutableList<LinkBean> = mutableListOf()
+//        val a = "你说的<a href=\"https://www.qq.com\">我是链接AAAA</a>11111<a href=\"https://www.baidu.com\">我也是链接</a>维生素睡啦啊十分另外玩完完完"
+//        val finalContent = LinkCheckHelper.computeLenFilterLink(a,linkList)
+//        var ssbContent1 = SpannableStringBuilder(finalContent)
+//        if (linkList.isNotEmpty()) {
+//            ssbContent1 = LinkCheckHelper.getLink(this, ssbContent1, linkList)
+//        }
+        val string = "你说的<a href=\"https://www.qq.com\">我是链接</a>11111<a href=\"https://www.baidu.com\">我也是链接</a>好开心啊，哈哈哈哈"
+        lifecycleScope.launch {
+            val contentString = LinkCheckHelper.computeLenFilterLink(string,this@MainActivity)
+            tvLink.text = contentString
 
+        }
 
         val strokeWidth = 1
         val spanTextSize = PublicMethod.sp2px(this, 10f)

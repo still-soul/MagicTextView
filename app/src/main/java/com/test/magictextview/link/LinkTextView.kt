@@ -3,7 +3,6 @@ package com.test.magictextview.link
 import android.content.Context
 import android.graphics.Color
 import android.text.Spannable
-import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
@@ -12,7 +11,6 @@ import androidx.appcompat.widget.AppCompatTextView
 import com.test.magictextview.link.helper.MyLinkMovementMethod
 
 import com.test.magictextview.link.interfaces.IPressedSpan
-import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * 显示链接的textView
@@ -21,8 +19,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class LinkTextView(context: Context, attrs: AttributeSet?) :
     AppCompatTextView(context, attrs) {
     private var mPressedSpan: IPressedSpan? = null
-    private var mBufferType = TextView.BufferType.NORMAL
-    private var mOrigText: CharSequence? = null
     init {
         isFocusable = false
         isLongClickable = false
@@ -30,41 +26,6 @@ class LinkTextView(context: Context, attrs: AttributeSet?) :
         movementMethod = MyLinkMovementMethod.instance
         highlightColor = Color.TRANSPARENT
     }
-
-    /**
-     * 解决textView 设置了movementMethod 后 ellipsize="end"无效
-     * 如果没有最大行数限制，直接调用setText即可
-     */
-    fun setMyText(text :CharSequence ){
-        super.setText(text)
-        post { setTextInternal(getNewTextByConfig(), mBufferType) }
-    }
-
-
-    private fun setTextInternal(text: CharSequence?, type: BufferType) {
-        mOrigText = text
-        super.setText(text, type)
-    }
-
-    private fun getNewTextByConfig() : CharSequence? {
-        if (maxLines in 1 until lineCount) {
-            // 计算出2行文字所能显示的长度
-            val bufferWidth = paint.textSize.toInt() * 1
-            val availableTextWidth: Int = layout.width  * maxLines - bufferWidth
-            // 根据长度截取出剪裁后的文字
-            mOrigText = TextUtils.ellipsize(
-                mOrigText, paint, availableTextWidth.toFloat(),
-                TextUtils.TruncateAt.END
-            )
-        }
-        return mOrigText
-    }
-
-    override fun setText(text: CharSequence, type: BufferType) {
-        mBufferType = type
-        setTextInternal(text, type)
-    }
-
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val text = text
@@ -75,7 +36,7 @@ class LinkTextView(context: Context, attrs: AttributeSet?) :
         }
         return if (mPressedSpan != null) {
             //如果有clickSpan就走MyLinkMovementMethod的onTouchEvent
-            MyLinkMovementMethod.instance!!.onTouchEvent(this, getText() as Spannable, event)
+            MyLinkMovementMethod.instance.onTouchEvent(this, getText() as Spannable, event)
         } else {
             super.onTouchEvent(event)
         }
