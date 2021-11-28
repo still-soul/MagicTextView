@@ -7,24 +7,20 @@
     android:orientation="vertical"
     tools:context=".MainActivity"
     android:padding="20dp">
-    <com.test.magictextview.moretext.ListMoreTextView
+    <com.test.magictextview.moretext.MoreTextView
         android:id="@+id/tvMore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:more_action_text_maxLines="3"
         app:more_action_text="...全文"
-        app:more_action_text_color="#4D6EB0"
-        app:more_can_click="true"
-        android:text="1111111"
-        android:layout_gravity="center"/>
+        app:more_action_text_color="#4D6EB0"/>
 
     <com.test.magictextview.link.LinkTextView
         android:id="@+id/tvLink"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:lineSpacingExtra="5dp"
-        android:visibility="gone"/>
+        android:lineSpacingExtra="5dp"/>
 
     <com.test.magictextview.round.RoundButton
         android:layout_gravity="center_horizontal"
@@ -35,14 +31,12 @@
         android:text="圆角button"
         android:textColor="@color/white"
         app:roundRadius="20dp"
-        app:roundBgColor="@color/design_default_color_primary_variant"
-        android:visibility="gone"/>
+        app:roundBgColor="@color/design_default_color_primary_variant"/>
 
     <TextView
         android:id="@+id/tvTag"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
