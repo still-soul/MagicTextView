@@ -23,15 +23,16 @@ import kotlin.math.ceil
  * @author zhaotk
  */
 class ListMoreTextView @JvmOverloads constructor(
-    context: Context?,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = R.attr.MoreTextViewStyle
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = R.attr.MoreTextViewStyle
 ) :
-    AppCompatTextView(context!!, attrs, defStyleAttr) {
+        AppCompatTextView(context, attrs, defStyleAttr) {
+
     /**
      * 最大行数
      */
-    private val maxLine: Int
+    private var maxLine: Int
 
     private val moreTextSize: Int
 
@@ -44,6 +45,7 @@ class ListMoreTextView @JvmOverloads constructor(
      * 尾部更多文字颜色
      */
     private val moreTextColor: Int
+
     /**
      * 是否可以点击尾部更多文字
      */
@@ -51,9 +53,14 @@ class ListMoreTextView @JvmOverloads constructor(
 
     private var mPaint: Paint? = null
 
+    /**
+     * 尾部更多文字点击事件接口回调
+     */
     private var onAllSpanClickListener: MyClickSpan.OnAllSpanClickListener? = null
 
-    //实现span的点击
+    /**
+     * 实现span的点击
+     */
     private var mPressedSpan: ClickableSpan? = null
     private var result = false
 
@@ -76,34 +83,54 @@ class ListMoreTextView @JvmOverloads constructor(
         mPaint = paint
     }
 
+    /**
+     * 设置最大行数
+     */
+    fun setMaxLine (maxLine : Int){
+        this.maxLine = maxLine
+    }
+
+    /**
+     * 使用者主动调用
+     * 如果有显示链接需求一定要调用此方法
+     */
+    fun setMovementMethodDefault() {
+        movementMethod = MyLinkMovementMethod.instance
+        highlightColor = Color.TRANSPARENT
+    }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         if (lineCount > maxLine) {
+            //如果大于设置的最大行数
             val (layout, stringBuilder, sb) = clipContent()
             stringBuilder.append(sb)
-            setMeasuredDimension(measuredWidth, getDesiredHeight(layout, maxLine))
+            setMeasuredDimension(measuredWidth, getDesiredHeight(layout))
             text = stringBuilder
         }
     }
 
+    /**
+     * 裁剪内容
+     */
     private fun clipContent(): Triple<Layout, SpannableStringBuilder, SpannableString> {
         var offset = 1
         val layout = layout
         val staticLayout = StaticLayout(
-            text,
-            layout.paint,
-            layout.width,
-            Layout.Alignment.ALIGN_NORMAL,
-            layout.spacingMultiplier,
-            layout.spacingAdd,
-            false
+                text,
+                layout.paint,
+                layout.width,
+                Layout.Alignment.ALIGN_NORMAL,
+                layout.spacingMultiplier,
+                layout.spacingAdd,
+                false
         )
         val indexEnd = staticLayout.getLineEnd(maxLine - 1)
         val tempText = text.subSequence(0, indexEnd)
         var offsetWidth =
-            layout.paint.measureText(tempText[indexEnd - 1].toString()).toInt()
+                layout.paint.measureText(tempText[indexEnd - 1].toString()).toInt()
         val moreWidth =
-            ceil(layout.paint.measureText(moreText).toDouble()).toInt()
+                ceil(layout.paint.measureText(moreText).toDouble()).toInt()
         //表情字节个数
         var countEmoji = 0
         while (indexEnd > offset && offsetWidth <= moreWidth ) {
@@ -114,13 +141,13 @@ class ListMoreTextView @JvmOverloads constructor(
             }
             offset++
             val pair = getOffsetWidth(
-                indexEnd,
-                offset,
-                tempText,
-                countEmoji,
-                offsetWidth,
-                layout,
-                moreWidth
+                    indexEnd,
+                    offset,
+                    tempText,
+                    countEmoji,
+                    offsetWidth,
+                    layout,
+                    moreWidth
             )
             offset = pair.first
             offsetWidth = pair.second
@@ -129,32 +156,32 @@ class ListMoreTextView @JvmOverloads constructor(
         val stringBuilder = SpannableStringBuilder(ssbShrink)
         val sb = SpannableString(moreText)
         sb.setSpan(
-            ForegroundColorSpan(moreTextColor), 3, sb.length,
-            Spanned.SPAN_INCLUSIVE_INCLUSIVE
+                ForegroundColorSpan(moreTextColor), 3, sb.length,
+                Spanned.SPAN_INCLUSIVE_INCLUSIVE
         )
         //设置字体大小
         sb.setSpan(
-            AbsoluteSizeSpan(moreTextSize, true), 3, sb.length,
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                AbsoluteSizeSpan(moreTextSize, true), 3, sb.length,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         if (moreCanClick){
             //设置点击事件
             sb.setSpan(
-                MyClickSpan(context, onAllSpanClickListener), 3, sb.length,
-                Spanned.SPAN_INCLUSIVE_INCLUSIVE
+                    MyClickSpan(context, onAllSpanClickListener), 3, sb.length,
+                    Spanned.SPAN_INCLUSIVE_INCLUSIVE
             )
         }
         return Triple(layout, stringBuilder, sb)
     }
 
     private fun getOffsetWidth(
-        indexEnd: Int,
-        offset: Int,
-        tempText: CharSequence,
-        countEmoji: Int,
-        offsetWidth: Int,
-        layout: Layout,
-        moreWidth: Int
+            indexEnd: Int,
+            offset: Int,
+            tempText: CharSequence,
+            countEmoji: Int,
+            offsetWidth: Int,
+            layout: Layout,
+            moreWidth: Int
     ): Pair<Int, Int> {
         var offset1 = offset
         var offsetWidth1 = offsetWidth
@@ -175,18 +202,20 @@ class ListMoreTextView @JvmOverloads constructor(
         return Pair(offset1, offsetWidth1)
     }
 
-
-    private fun getDesiredHeight(layout: Layout?, i: Int): Int {
-
+    /**
+     * 获取内容高度
+     */
+    private fun getDesiredHeight(layout: Layout?): Int {
         if (layout == null) {
             return 0
         }
         val lineTop: Int
         val lineCount = layout.lineCount
-        val compoundPaddingTop = compoundPaddingTop + compoundPaddingBottom
+        val compoundPaddingTop = compoundPaddingTop + compoundPaddingBottom - lineSpacingExtra.toInt()
         lineTop = when {
-            lineCount > i -> {
-                layout.getLineTop(i)
+            lineCount > maxLine -> {
+                //文字行数超过最大行
+                layout.getLineTop(maxLine)
             }
             else -> {
                 layout.getLineTop(lineCount)
@@ -207,7 +236,7 @@ class ListMoreTextView @JvmOverloads constructor(
         if (mPressedSpan != null && mPressedSpan is MyLinkClickSpan) {
             //如果有MyLinkClickSpan就走MyLinkMovementMethod的onTouchEvent
             return MyLinkMovementMethod.instance
-                .onTouchEvent(this, getText() as Spannable, event)
+                    .onTouchEvent(this, text as Spannable, event)
         }
 
         if (event.action == MotionEvent.ACTION_MOVE) {
@@ -234,8 +263,8 @@ class ListMoreTextView @JvmOverloads constructor(
         if (mPressedSpan != null && mPressedSpan is MyClickSpan) {
             result = true
             Selection.setSelection(
-                spannable, spannable.getSpanStart(mPressedSpan),
-                spannable.getSpanEnd(mPressedSpan)
+                    spannable, spannable.getSpanStart(mPressedSpan),
+                    spannable.getSpanEnd(mPressedSpan)
             )
         } else {
             result = if (moreCanClick){
@@ -267,14 +296,14 @@ class ListMoreTextView @JvmOverloads constructor(
      * 设置尾部...全文点击事件
      */
     fun setOnAllSpanClickListener(
-        onAllSpanClickListener: MyClickSpan.OnAllSpanClickListener
+            onAllSpanClickListener: MyClickSpan.OnAllSpanClickListener
     ) {
         this.onAllSpanClickListener = onAllSpanClickListener
     }
 
     private fun getPressedSpan(
-        textView: TextView, spannable: Spannable,
-        event: MotionEvent
+            textView: TextView, spannable: Spannable,
+            event: MotionEvent
     ): ClickableSpan? {
         var mTouchSpan: ClickableSpan? = null
 
@@ -289,10 +318,10 @@ class ListMoreTextView @JvmOverloads constructor(
         val off = layout.getOffsetForHorizontal(line, x.toFloat())
 
         val spans: Array<MyClickSpan> =
-            spannable.getSpans(
-                off, off,
-                MyClickSpan::class.java
-            )
+                spannable.getSpans(
+                        off, off,
+                        MyClickSpan::class.java
+                )
         if (spans.isNotEmpty()) {
             mTouchSpan = spans[0]
         } else {
