@@ -8,7 +8,7 @@ import android.text.style.ReplacementSpan
 
 /**
  * 自定义textView tag
- * @author zhaotk
+ * @author xiaoman
  */
 class TagSpanText(
         /**

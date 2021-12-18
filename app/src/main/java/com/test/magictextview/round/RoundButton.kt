@@ -9,8 +9,8 @@ import com.test.magictextview.round.RoundButtonDrawable.Companion.fromAttrSet
 import com.test.magictextview.utils.ViewHelperUtils.setBackgroundKeepingPadding
 
 /**
- * @author zhaotk
  * 可以设置背景色、指定圆角、描边的宽度和颜色
+ * @author xiaoman
  */
 class RoundButton @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0

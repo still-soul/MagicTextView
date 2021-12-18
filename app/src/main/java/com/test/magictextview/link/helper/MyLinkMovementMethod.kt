@@ -8,7 +8,7 @@ import android.widget.TextView
 
 /**
  * 禁止textView滑动，这里只保留了点击响应，
- * @author zhaotk
+ * @author xiaoman
  */
 class MyLinkMovementMethod : LinkMovementMethod() {
     override fun onTouchEvent(widget: TextView, buffer: Spannable, event: MotionEvent): Boolean {

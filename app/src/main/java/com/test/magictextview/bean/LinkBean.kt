@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 /**
  * 链接bean
- * @author zhaotk
+ * @author xiaoman
  */
 @Parcelize
 data class LinkBean(

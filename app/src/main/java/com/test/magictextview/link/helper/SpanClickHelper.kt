@@ -9,7 +9,7 @@ import com.test.magictextview.link.interfaces.IPressedSpan
 
 /**
  * 链接触摸事件帮助类
- * @author zhaotk
+ * @author xiaoman
  */
 class SpanClickHelper {
     private var mPressedSpan: IPressedSpan? = null

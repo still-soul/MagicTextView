@@ -19,7 +19,7 @@ import java.util.regex.Pattern
 
 /**
  * 链接工具类
- * @author zhaotk
+ * @author xiaoman
  */
 object LinkCheckHelper {
     /**

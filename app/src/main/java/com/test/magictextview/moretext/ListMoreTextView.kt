@@ -20,7 +20,7 @@ import kotlin.math.ceil
 
 /**
  * 限制最大行数且在最后显示...全文
- * @author zhaotk
+ * @author xiaoman
  */
 class ListMoreTextView @JvmOverloads constructor(
         context: Context,

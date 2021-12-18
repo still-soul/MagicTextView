@@ -7,8 +7,8 @@ import androidx.core.content.ContextCompat
 import com.test.magictextview.R
 
 /**
- * @author zhaotk
  * res/drawable 中的shape文件动态设置
+ * @author xiaoman
  */
 class RoundButtonDrawable : GradientDrawable() {
     private var mStrokeWidth = 0

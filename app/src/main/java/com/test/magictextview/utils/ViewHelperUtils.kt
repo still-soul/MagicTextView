@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable
 import android.view.View
 
 /**
- * @author zhaotk
+ * @author xiaoman
  */
 object ViewHelperUtils {
     @JvmStatic
