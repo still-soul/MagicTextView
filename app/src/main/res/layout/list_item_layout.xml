@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.test.magictextview.moretext.ListMoreTextView
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tv"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
-    android:layout_marginTop="20dp"
-    app:more_action_text_maxLines="3"
-    app:more_action_text="...全文"
-    app:more_action_text_color="#4D6EB0"
-    app:more_can_click="true"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+    android:layout_height="wrap_content">
+
+    <com.test.magictextview.moretext.ListMoreTextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:more_action_text="...全文"
+        app:more_action_text_color="#4D6EB0"
+        app:more_action_text_maxLines="3"
+        app:more_can_click="true"
+        tools:text="明月几时有？把酒问青天。不知天上宫阙，今夕是何年。我欲乘风归去，又恐琼楼玉宇，高处不胜寒。起舞弄清影，何似在人间。转朱阁，低绮户，照无眠。不应有恨，何事长向别时圆？人有悲欢离合，月有阴晴圆缺，此事古难全。但愿人长久，千里共婵娟。" />
+
+    <com.test.magictextview.like.view.LikeView
+        android:id="@+id/likeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv"
+        app:text_size="12sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

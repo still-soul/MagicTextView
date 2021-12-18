@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LikeAnimationLayout">
+        <attr name="eruption_element_amount" format="integer" />
+        <attr name="max_eruption_total" format="integer" />
+        <attr name="max_angle" format="integer" />
+        <attr name="min_angle" format="integer" />
+        <attr name="show_emoji" format="boolean" />
+        <attr name="show_text" format="boolean" />
+    </declare-styleable>
+
+
+    <declare-styleable name="LikeView">
+        <attr name="long_press" format="boolean" />
+        <attr name="text_color" format="color"/>
+        <attr name="like_icon_id" format="reference" />
+        <attr name="text_size" format="dimension" />
+        <attr name="text_string" format="string" />
+    </declare-styleable>
+</resources>
