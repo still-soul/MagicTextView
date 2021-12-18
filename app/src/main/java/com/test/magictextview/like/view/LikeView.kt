@@ -149,7 +149,7 @@ import java.lang.reflect.Field
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        var onTouch = false
+        var onTouch: Boolean
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 isRefreshing = false
@@ -157,10 +157,10 @@ import java.lang.reflect.Field
                 //点击
                 lastDownTime = System.currentTimeMillis()
 //                findSmartRefreshLayout(false)
-                if (isRefreshing) {
-                    //如果有下拉控件并且正在刷新直接不响应
-                    return false
-                }
+//                if (isRefreshing) {
+//                    //如果有下拉控件并且正在刷新直接不响应
+//                    return false
+//                }
                 postDelayed(autoPollTask, CLICK_INTERVAL_TIME)
                 onTouch = true
             }
@@ -174,13 +174,13 @@ import java.lang.reflect.Field
                     //大于等于间隔时间按照长按抬起手指处理
                     onFingerDowningListener?.onUp()
                 }
-                findSmartRefreshLayout(true)
+//                findSmartRefreshLayout(true)
                 removeCallbacks(autoPollTask)
                 onTouch = true
             }
             MotionEvent.ACTION_CANCEL ->{
                 isDowning = false
-                findSmartRefreshLayout(true)
+//                findSmartRefreshLayout(true)
                 removeCallbacks(autoPollTask)
                 onTouch = false
             }
