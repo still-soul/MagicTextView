@@ -12,4 +12,4 @@
 
 5、agSpanText ：TextView tag 标签
 
-6、LikeView ：点赞按钮，配合LikeAnimationLayout使用实现点赞动画
+6、LikeView ：点赞按钮，配合LikeAnimationLayout使用实现点赞动画，具体用法请看ListActivity
