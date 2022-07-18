@@ -8,7 +8,11 @@
 
 3、LinkTextView ：链接的显示和交互
 
-4、RoundButton: 可以设置背景色、指定圆角、描边的宽度和颜色
+4、圆角 可以设置背景色、指定圆角、描边的宽度和颜色
+   4.1）RoundButton ：圆角TextView
+   4.2）RoundFrameLayout : 圆角帧布局
+   4.3）RoundLinearLayout：圆角线性布局
+   4.4）RoundConstraintLayout：圆角约束布局
 
 5、agSpanText ：TextView tag 标签
 
