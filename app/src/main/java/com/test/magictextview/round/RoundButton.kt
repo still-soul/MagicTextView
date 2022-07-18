@@ -24,7 +24,7 @@ class RoundButton @JvmOverloads constructor(
 
     /**
      * 设置背景颜色
-     * @param color
+     * [color] 颜色值
      */
     override fun setBackgroundColor(color: Int) {
         roundButtonDrawable?.setColor(color)
@@ -32,8 +32,8 @@ class RoundButton @JvmOverloads constructor(
 
     /**
      * 设置描边的宽度和颜色
-     * @param width
-     * @param color
+     * [width] 宽度
+     * [color] 颜色
      */
     fun setStrokeData(width: Int, color: Int) {
         roundButtonDrawable?.setStrokeData(width, color)
@@ -41,7 +41,7 @@ class RoundButton @JvmOverloads constructor(
 
     /**
      * 设置描边颜色
-     * @param color
+     * [color] 颜色
      */
     fun setStrokeColors(color: Int) {
         roundButtonDrawable?.setStrokeColor(color)
@@ -49,7 +49,7 @@ class RoundButton @JvmOverloads constructor(
 
     /**
      * 设置四个角的半径
-     * @param radius
+     * [radius] 半径
      */
     fun setRadius(radius: Int) {
         roundButtonDrawable?.cornerRadius = radius.toFloat()
@@ -57,10 +57,10 @@ class RoundButton @JvmOverloads constructor(
 
     /**
      * 设置 每一个角的半径
-     * @param topLeftRadius     左上角半径
-     * @param topRightRadius    右上角半径
-     * @param bottomLeftRadius  左下角半径
-     * @param bottomRightRadius 右下角半径
+     * [topLeftRadius]      左上角半径
+     * [topRightRadius]    右上角半径
+     * [bottomLeftRadius]   左下角半径
+     * [bottomRightRadius]  右下角半径
      * The corners are ordered top-left, top-right, bottom-right, bottom-left
      */
     fun setEachCornerRadius(topLeftRadius: Int, topRightRadius: Int, bottomLeftRadius: Int, bottomRightRadius: Int) {
@@ -75,9 +75,9 @@ class RoundButton @JvmOverloads constructor(
 
     /**
      * 设置渐变
-     * @param gradientType 渐变类型
-     * @param orientation  渐变方向
-     * @param colors       渐变颜色
+     * [gradientType]  渐变类型
+     * [orientation]   渐变方向
+     * [colors]        渐变颜色
      */
     fun setGradient(gradientType: Int, orientation: GradientDrawable.Orientation?, colors: IntArray?) {
         roundButtonDrawable?.apply {

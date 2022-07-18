@@ -326,7 +326,7 @@ class ListMoreTextView @JvmOverloads constructor(
             mTouchSpan = spans[0]
         } else {
             val linkSpans = spannable.getSpans(off, off, MyLinkClickSpan::class.java)
-            if (linkSpans != null && linkSpans.isNotEmpty()) {
+            if (layout.getOffsetToRightOf(off) != off && linkSpans != null && linkSpans.isNotEmpty()) {
                 mTouchSpan = linkSpans[0]
             }
         }
