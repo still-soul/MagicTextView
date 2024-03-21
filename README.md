@@ -14,6 +14,6 @@
    4.3）RoundLinearLayout：圆角线性布局
    4.4）RoundConstraintLayout：圆角约束布局
 
-5、agSpanText ：TextView tag 标签
+5、tagSpanText ：TextView tag 标签
 
 6、LikeView ：点赞按钮，配合LikeAnimationLayout使用实现点赞动画，具体用法请看ListActivity
